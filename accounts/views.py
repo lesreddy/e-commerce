@@ -39,7 +39,12 @@ def login(request):
         login_form = UserLoginForm()
     return render(request, 'login.html', {"login_form": login_form})
 
-def registration(request):
+@login_required
+def profile(request):
+    """A view that displays the profile page of a logged in user"""
+    return render(request, 'profile.html')
+
+def register(request):
     """Render the registration page"""
     if request.user.is_authenticated:
         return redirect(reverse('index'))
@@ -63,7 +68,7 @@ def registration(request):
     else:
         registration_form = UserRegistrationForm()
 
-    return render(request, 'registration.html', {
+    return render(request, 'register.html', {
         "registration_form": registration_form})
 
 def user_profile(request):
